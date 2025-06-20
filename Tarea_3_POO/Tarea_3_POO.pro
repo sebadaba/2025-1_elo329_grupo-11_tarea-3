@@ -15,7 +15,9 @@ SOURCES += \
     mainwindow.cpp \
     publisher.cpp \
     subscriber.cpp \
-    topic.cpp
+    topic.cpp \
+    videofollower.cpp \
+    videopublisher.cpp
 
 HEADERS += \
     broker.h \
@@ -23,7 +25,9 @@ HEADERS += \
     mainwindow.h \
     publisher.h \
     subscriber.h \
-    topic.h
+    topic.h \
+    videofollower.h \
+    videopublisher.h
 
 FORMS += \
     mainwindow.ui

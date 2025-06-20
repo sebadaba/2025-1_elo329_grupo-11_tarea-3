@@ -7,13 +7,100 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>455</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Publisher-Subscriber Simulator</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>291</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="LayoutPublisher">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Ahmaru-&gt;Video</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="campoURL"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>0</y>
+      <width>501</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="LayoutSusbcriber">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Sebastian-&gt;Video</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="UrlBoton">
+         <property name="text">
+          <string>Not URL set</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -23,8 +110,32 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuPublisher">
+    <property name="title">
+     <string>Publisher</string>
+    </property>
+    <addaction name="actionVideo_Publisher"/>
+   </widget>
+   <widget class="QMenu" name="menuSubscriber">
+    <property name="title">
+     <string>Subscriber</string>
+    </property>
+    <addaction name="actionVideo_Subscriber"/>
+   </widget>
+   <addaction name="menuPublisher"/>
+   <addaction name="menuSubscriber"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionVideo_Publisher">
+   <property name="text">
+    <string>Video</string>
+   </property>
+  </action>
+  <action name="actionVideo_Subscriber">
+   <property name="text">
+    <string>Video</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
