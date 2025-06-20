@@ -21,8 +21,8 @@ public:
 private slots:
     void on_actionVideo_Publisher_triggered();
     void on_actionVideo_Subscriber_triggered();
-
     void on_campoURL_returnPressed();
+    void on_UrlBoton_clicked();
 
 private:
     Ui::MainWindow *ui;

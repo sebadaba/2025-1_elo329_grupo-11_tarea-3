@@ -30,7 +30,10 @@ HEADERS += \
     videopublisher.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    video.ui
+
+QT += multimedia multimediawidgets
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
