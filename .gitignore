@@ -1,0 +1,8 @@
+*.user
+*.pro.user
+*.pro.user.*
+*.autosave
+
+build/
+.qtc_clangd/
+*.idx
