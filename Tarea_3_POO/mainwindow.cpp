@@ -36,7 +36,7 @@ void MainWindow::on_actionVideo_Subscriber_triggered()
 
 }
 
-void MainWindow::on_campoURL_returnPressed()
+void MainWindow::on_campoURL_returnPressed() // Logica para el campo de texto URL
 {
     videoPublisher.SetURL(ui->campoURL->text());
     ui->UrlBoton->setText(ui->campoURL->text());
