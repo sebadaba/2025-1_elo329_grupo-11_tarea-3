@@ -1,6 +1,7 @@
 #ifndef GPSCARPUBLISHER_H
 #define GPSCARPUBLISHER_H
 
+#include "ObjectCarrier.h"
 #include <QVector>
 #include <QFileDialog>
 #include <QPair>
@@ -13,18 +14,21 @@ struct posicion{
     float y;
 };
 
-class GPSCarPublisher : public Publisher{
+class GPSCarPublisher : public conveniente, public Publisher{
+    Q_OBJECT
 public:
     GPSCarPublisher(QString nombre,Broker &broker,QString topicName);
     ~GPSCarPublisher();
     void pasarData();
     posicion Interpolacion();
+    QVector<posicion> getPosiciones() const;
+    bool existe() const;
 
 private:
     QVector<posicion> posiciones;
     int tiempoact;
     int iteradoract;
-
+    QTimer* tempo;
 };
 
 

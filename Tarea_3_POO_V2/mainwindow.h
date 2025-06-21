@@ -3,8 +3,8 @@
 #include "videopublisher.h"
 #include "broker.h"
 #include "GPSCarPublisher.h"
+#include "GPSFollower.h"
 #include <QMainWindow>
-#include <QTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,16 +23,16 @@ public:
 private slots:
     void on_actionVideo_Publisher_triggered();
     void on_actionVideo_Subscriber_triggered();
-
     void on_campoURL_returnPressed();
-
-    void apretarboton();
+    void on_UrlBoton_clicked();
 
 private:
     Ui::MainWindow *ui;
     Broker broker;
     VideoPublisher videoPublisher;
+    //Todo esto para la simulacion de GPS.
     GPSCarPublisher autito;
-    QTimer* timer;
+    GPSFollower* rutero = nullptr;
+    QTimer* reloj;
 };
 #endif // MAINWINDOW_H

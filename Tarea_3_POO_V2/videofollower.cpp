@@ -1,5 +1,7 @@
 #include "videofollower.h"
 #include "ui_video.h"
+#include <QMediaPlayer>
+#include <QVideoWidget>
 #include <QDebug>
 #include <QUrl>
 #include <QCloseEvent>
@@ -79,7 +81,6 @@ void VideoFollower::PlayVideo(QString Url)
 
 
     mediaPlayer->setMedia(videoQUrl);
-
     
     qDebug() << "Cargando video:" << Url;
 }

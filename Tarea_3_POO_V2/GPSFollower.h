@@ -5,15 +5,22 @@
 #include <QVBoxLayout>
 #include "subscriber.h"
 
-class GPSFollower : public Subscriber{
+QT_BEGIN_NAMESPACE
+namespace Ui{
+class gpsfollower;
+}
+QT_END_NAMESPACE
+
+class GPSFollower : public QWidget, public Subscriber{
+    Q_OBJECT
 public:
-    GPSFollower();
+    GPSFollower(QString nombre,QString topicName, QWidget* parent = nullptr);
     ~GPSFollower();
     void update(const QString& mensaje);
-
+protected:
+    void paintEvent(QPaintEvent* event);
 private:
-    QWidget* ventana;
-    QLabel* text;
+    Ui::gpsfollower* ui;
     float X,Y;
     int tiempo;
 };
