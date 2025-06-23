@@ -11,7 +11,7 @@ public:
     conveniente(QObject* parent = nullptr) : QObject(parent){}
 
 signals:
-    void endTime();
+    virtual void endTime();
 };
 
 #endif // OBJECTCARRIER_H

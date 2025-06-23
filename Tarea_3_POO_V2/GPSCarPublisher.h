@@ -19,11 +19,12 @@ class GPSCarPublisher : public conveniente, public Publisher{
 public:
     GPSCarPublisher(QString nombre,Broker &broker,QString topicName);
     ~GPSCarPublisher();
-    void pasarData();
-    posicion Interpolacion();
     QVector<posicion> getPosiciones() const;
     bool existe() const;
-
+private slots:
+    void pasarData();
+signals:
+    void endTime() override;
 private:
     QVector<posicion> posiciones;
     int tiempoact;

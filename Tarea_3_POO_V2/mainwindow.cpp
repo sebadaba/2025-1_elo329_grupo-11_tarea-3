@@ -13,48 +13,49 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , broker(Broker())
     , videoPublisher(VideoPublisher("Ahmaru", broker, "twitch"))
-    , autito(GPSCarPublisher("Seba",broker,"ferrari"))
-    , rutero(new GPSFollower("Sebagey","ferrari",nullptr))
-    , reloj(new QTimer(this))
 {
     ui->setupUi(this);
     ui->UrlBoton->setDisabled(true);
     connect(ui->actionVideo_Publisher, &QAction::triggered, this, &MainWindow::on_actionVideo_Publisher_triggered);
     connect(ui->actionVideo_Subscriber, &QAction::triggered, this, &MainWindow::on_actionVideo_Subscriber_triggered);
 
-    connect(reloj, &QTimer::timeout, this , [=](){
-        autito.pasarData();
-    });
-    reloj->start(1000);
+    connect(ui->actionGPS,&QAction::triggered, this, &MainWindow::click_GPS);
 
-    /*
-    if(autito.getPosiciones().isEmpty()){
-        reloj->stop();
-        QMessageBox::warning(this,"ERROR","No se han cargado correctamente las posiciones.");
+    rutero->show();
+    rutero->raise();
+    rutero->activateWindow();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+    delete autito;
+    delete rutero;
+}
+
+void MainWindow::click_GPS(){
+    autito = new GPSCarPublisher("Seba",broker,"ferrari");
+
+    if(!autito->existe()){
+        QMessageBox::warning(this,"ERROR","No se cargaron correctamente las posiciones.");
+        delete autito;
+        autito = nullptr;
+        return;
     }
-    */
-    if(!autito.existe()){
-        reloj->stop();
-        QMessageBox::warning(this,"ERROR","No se han cargado correctamente las posiciones.");
+
+    if(!rutero){
+        rutero = new GPSFollower("Antoniog","ferrari",this);
     }
 
     rutero->show();
     rutero->raise();
     rutero->activateWindow();
 
-    connect(&autito,&GPSCarPublisher::endTime,this,[=](){
-        reloj->stop();
-        qDebug() << "Ruta finalizada.";
+    connect(autito,&GPSCarPublisher::endTime,this,[=](){
+        QMessageBox::information(this,"Ruta finalizada","Se ha terminado la simulacion de GPS");
     });
 
 }
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-    delete reloj;
-}
-
 
 void MainWindow::on_actionVideo_Publisher_triggered()
 {
@@ -63,7 +64,6 @@ void MainWindow::on_actionVideo_Publisher_triggered()
 
 void MainWindow::on_actionVideo_Subscriber_triggered()
 {
-
 }
 
 void MainWindow::on_campoURL_returnPressed() // Logica para el campo de texto URL
@@ -82,6 +82,5 @@ void MainWindow::on_UrlBoton_clicked()
     videoWindow->activateWindow();
 
     videoWindow->PlayVideo(ui->UrlBoton->text());
-
 }
 

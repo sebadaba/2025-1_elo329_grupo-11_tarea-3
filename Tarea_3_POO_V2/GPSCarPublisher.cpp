@@ -10,10 +10,13 @@ GPSCarPublisher::GPSCarPublisher(QString nombre, Broker &broker, QString topicNa
     qDebug("OLA.....");
     QString archivoname = QFileDialog::getOpenFileName(nullptr,"Select route file","","Text Files (*.txt)");
     if(archivoname.isEmpty()){
-        qDebug() << "Archivo no ha sido seleccionado.";
+        qDebug("Archivo no ha sido seleccionado.");
         return;
     }else{
         QFile file(archivoname);
+        if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+            qDebug() << "No se pudo abrir el archivo." << file.errorString();
+        }
         QTextStream in(&file);
         while(!in.atEnd()){
             int tiempo;
@@ -23,31 +26,21 @@ GPSCarPublisher::GPSCarPublisher(QString nombre, Broker &broker, QString topicNa
             qDebug("Leyendo....");
         }
     }
+
+    tempo = new QTimer(this);
+    connect(tempo,&QTimer::timeout,this,&GPSCarPublisher::pasarData);
+    tempo->start(1000);
+
 }
 
 GPSCarPublisher::~GPSCarPublisher(){}
 
 //funcion que interpola y usa publishNewEvent() para actualizar la ruta.
 void GPSCarPublisher::pasarData(){
-
-    posicion pos = Interpolacion();
-    if(pos.time == -1){
-        emit endTime();
-        return;
-    }
-
-    QString mensaje = QString("%1 %2 %3").arg(pos.time).arg(pos.x).arg(pos.y);
-    //this->publishNewEvent(mensaje);
-    tiempoact++;
-}
-
-posicion GPSCarPublisher::Interpolacion(){
     if(iteradoract >= posiciones.size()-1){
-        posicion fin;
-        fin.time = -1;
-        fin.x = 0;
-        fin.y = 0;
-        return fin;
+        tempo->stop();
+        emit endTime();
+        return ;
     }
 
     posicion p1 = posiciones[iteradoract];
@@ -58,7 +51,8 @@ posicion GPSCarPublisher::Interpolacion(){
 
     if(tiempoact > t2){
         iteradoract++;
-        return posicion{-1,0,0};
+        pasarData();
+        return;
     }
 
     //interpolacion.
@@ -66,7 +60,9 @@ posicion GPSCarPublisher::Interpolacion(){
     float posx = (1-a) * p1.x + a * p2.x;
     float posy = (1-a) * p1.y + a * p2.y;
 
-    return posicion{tiempoact,posx,posy};
+    QString mensaje = QString("%1 %2 %3").arg(tiempoact).arg(posx).arg(posy);
+    //this->publishNewEvent(mensaje);
+    tiempoact++;
 }
 
 QVector<posicion> GPSCarPublisher::getPosiciones() const{

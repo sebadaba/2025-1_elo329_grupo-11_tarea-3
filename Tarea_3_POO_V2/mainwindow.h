@@ -25,14 +25,14 @@ private slots:
     void on_actionVideo_Subscriber_triggered();
     void on_campoURL_returnPressed();
     void on_UrlBoton_clicked();
-
+    void click_GPS();
 private:
     Ui::MainWindow *ui;
     Broker broker;
     VideoPublisher videoPublisher;
     //Todo esto para la simulacion de GPS.
-    GPSCarPublisher autito;
+    GPSCarPublisher* autito = nullptr;
     GPSFollower* rutero = nullptr;
-    QTimer* reloj;
+    //QTimer* reloj;
 };
 #endif // MAINWINDOW_H
