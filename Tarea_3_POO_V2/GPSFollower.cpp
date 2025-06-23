@@ -22,14 +22,14 @@ void GPSFollower::paintEvent(QPaintEvent *){
     painter.setBrush(Qt::red);
     painter.setRenderHint(QPainter::Antialiasing);
     //drawEllipse usa solo int.
-    int transX = static_cast<int>(x);
-    int transY = static_cast<int>(y);
+    int transX = static_cast<int>(X);
+    int transY = static_cast<int>(Y);
     painter.drawEllipse(transX*3,transY*3,15,15);
 }
 
 void GPSFollower::update(const QString msg){
     QTextStream stream(&msg);
-    stream >> tiempo >> x >> y ;
+    stream >> tiempo >> X >> Y ;
 
     //Escribe en el label.
     ui->labelcoordenadas->setText(QString("t: %1 , x: %2 , y: %3 ").arg(tiempo,0,"f",2).arg(x,0,"f",2).arg(y,0,"f",2));
