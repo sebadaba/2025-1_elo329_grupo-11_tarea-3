@@ -1,12 +1,13 @@
 #include "GPSFollower.h"
 #include "ui_gpsfollower.h"
+#include "subscriber.h"
 #include <QTextStream>
 #include <QPainter>
 
 GPSFollower::GPSFollower(QString nombre, QString topicNamen,QWidget *parent) :
     QWidget(parent)
     , Subscriber(name,topicName)
-    , ui(new Ui::gpsfollower)
+    , ui(new Ui::Form)
 {
     ui->setupUi(this);
     setWindowTitle("Seguimiento ruta Seba");
@@ -27,13 +28,13 @@ void GPSFollower::paintEvent(QPaintEvent *){
     painter.drawEllipse(transX*3,transY*3,15,15);
 }
 
-void GPSFollower::update(const QString msg){
-    QTextStream stream(&msg);
+void GPSFollower::update(QString& msg){
+    QString copy = msg;
+    QTextStream stream(&copy);
     stream >> tiempo >> X >> Y ;
 
     //Escribe en el label.
-    ui->labelcoordenadas->setText(QString("t: %1 , x: %2 , y: %3 ").arg(tiempo,0,"f",2).arg(x,0,"f",2).arg(y,0,"f",2));
-    ui
+    ui->labelcoordenadas->setText(QString("t: %1 , x: %2 , y: %3 ").arg(tiempo).arg(X).arg(Y));
 
     QWidget::update();
 }

@@ -7,7 +7,7 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui{
-class gpsfollower;
+class Form;
 }
 QT_END_NAMESPACE
 
@@ -16,11 +16,11 @@ class GPSFollower : public QWidget, public Subscriber{
 public:
     GPSFollower(QString nombre,QString topicName, QWidget* parent = nullptr);
     ~GPSFollower();
-    void update(const QString& mensaje);
+    void update(QString& mensaje);
 protected:
     void paintEvent(QPaintEvent* event);
 private:
-    Ui::gpsfollower* ui;
+    Ui::Form* ui;
     float X,Y;
     int tiempo;
 };

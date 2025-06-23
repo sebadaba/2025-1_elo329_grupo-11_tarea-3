@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , broker(Broker())
     , videoPublisher(VideoPublisher("Ahmaru", broker, "twitch"))
     , autito(GPSCarPublisher("Seba",broker,"ferrari"))
-    , rutero(new GPSFollower("Sebagey","ferrari",this))
+    , rutero(new GPSFollower("Sebagey","ferrari",nullptr))
     , reloj(new QTimer(this))
 {
     ui->setupUi(this);
@@ -37,6 +37,11 @@ MainWindow::MainWindow(QWidget *parent)
         reloj->stop();
         QMessageBox::warning(this,"ERROR","No se han cargado correctamente las posiciones.");
     }
+
+    rutero->show();
+    rutero->raise();
+    rutero->activateWindow();
+
     connect(&autito,&GPSCarPublisher::endTime,this,[=](){
         reloj->stop();
         qDebug() << "Ruta finalizada.";

@@ -7,18 +7,21 @@ GPSCarPublisher::GPSCarPublisher(QString nombre, Broker &broker, QString topicNa
     tiempoact(0),
     iteradoract(0)
 {
+    qDebug("OLA.....");
     QString archivoname = QFileDialog::getOpenFileName(nullptr,"Select route file","","Text Files (*.txt)");
     if(archivoname.isEmpty()){
         qDebug() << "Archivo no ha sido seleccionado.";
         return;
-    }
-    QFile file(archivoname);
-    QTextStream in(&file);
-    while(!in.atEnd()){
-        int tiempo;
-        float posx,posy;
-        in >> tiempo >> posx >> posy;
-        posiciones.append({tiempo,posx,posy});
+    }else{
+        QFile file(archivoname);
+        QTextStream in(&file);
+        while(!in.atEnd()){
+            int tiempo;
+            float posx,posy;
+            in >> tiempo >> posx >> posy;
+            posiciones.append({tiempo,posx,posy});
+            qDebug("Leyendo....");
+        }
     }
 }
 
@@ -34,7 +37,7 @@ void GPSCarPublisher::pasarData(){
     }
 
     QString mensaje = QString("%1 %2 %3").arg(pos.time).arg(pos.x).arg(pos.y);
-    this->publishNewEvent(mensaje);
+    //this->publishNewEvent(mensaje);
     tiempoact++;
 }
 
