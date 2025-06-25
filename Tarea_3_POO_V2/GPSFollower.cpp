@@ -4,9 +4,9 @@
 #include <QTextStream>
 #include <QPainter>
 
-GPSFollower::GPSFollower(QString nombre, QString topicNamen,QWidget *parent) :
+GPSFollower::GPSFollower(QWidget *parent) :
     QWidget(parent)
-    , Subscriber(name,topicName)
+    , Subscriber("AntonioOG","ferrari")
     , ui(new Ui::Form)
 {
     ui->setupUi(this);
@@ -23,18 +23,19 @@ void GPSFollower::paintEvent(QPaintEvent *){
     painter.setBrush(Qt::red);
     painter.setRenderHint(QPainter::Antialiasing);
     //drawEllipse usa solo int.
-    int transX = static_cast<int>(X);
-    int transY = static_cast<int>(Y);
+    int transX = static_cast<int>(vctr.X);
+    int transY = static_cast<int>(vctr.Y);
     painter.drawEllipse(transX*3,transY*3,15,15);
 }
 
 void GPSFollower::update(QString& msg){
     QString copy = msg;
     QTextStream stream(&copy);
-    stream >> tiempo >> X >> Y ;
+    stream >> vctr.tiempo >> vctr.X >> vctr.Y;
 
     //Escribe en el label.
-    ui->labelcoordenadas->setText(QString("t: %1 , x: %2 , y: %3 ").arg(tiempo).arg(X).arg(Y));
+    ui->labelcoordenadas->setText(QString("t: %1 , x: %2 , y: %3 ").arg(vctr.tiempo).arg(vctr.X).arg(vctr.Y));
 
     QWidget::update();
 }
+

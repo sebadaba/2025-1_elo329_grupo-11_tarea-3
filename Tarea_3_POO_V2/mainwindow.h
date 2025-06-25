@@ -32,7 +32,6 @@ private:
     VideoPublisher videoPublisher;
     //Todo esto para la simulacion de GPS.
     GPSCarPublisher* autito = nullptr;
-    GPSFollower* rutero = nullptr;
     //QTimer* reloj;
 };
 #endif // MAINWINDOW_H

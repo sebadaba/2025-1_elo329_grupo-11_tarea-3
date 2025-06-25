@@ -18,19 +18,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->UrlBoton->setDisabled(true);
     connect(ui->actionVideo_Publisher, &QAction::triggered, this, &MainWindow::on_actionVideo_Publisher_triggered);
     connect(ui->actionVideo_Subscriber, &QAction::triggered, this, &MainWindow::on_actionVideo_Subscriber_triggered);
-
     connect(ui->actionGPS,&QAction::triggered, this, &MainWindow::click_GPS);
-
-    rutero->show();
-    rutero->raise();
-    rutero->activateWindow();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete autito;
-    delete rutero;
+    //delete rutero;
 }
 
 void MainWindow::click_GPS(){
@@ -42,19 +37,21 @@ void MainWindow::click_GPS(){
         autito = nullptr;
         return;
     }
+    qDebug("Se ha creado GPSPublisher bien");
 
-    if(!rutero){
-        rutero = new GPSFollower("Antoniog","ferrari",this);
-    }
+    GPSFollower* rutero = new GPSFollower(nullptr);
 
     rutero->show();
     rutero->raise();
     rutero->activateWindow();
+    qDebug("mostrando cosito");
 
     connect(autito,&GPSCarPublisher::endTime,this,[=](){
+        rutero->close();
         QMessageBox::information(this,"Ruta finalizada","Se ha terminado la simulacion de GPS");
+        qDebug("Timer lindo terminado");
     });
-
+    rutero->update();
 }
 
 void MainWindow::on_actionVideo_Publisher_triggered()

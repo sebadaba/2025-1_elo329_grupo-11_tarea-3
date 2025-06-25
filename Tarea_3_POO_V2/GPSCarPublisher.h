@@ -21,8 +21,9 @@ public:
     ~GPSCarPublisher();
     QVector<posicion> getPosiciones() const;
     bool existe() const;
+    QString obtenerMSJ(QString msj);
 private slots:
-    void pasarData();
+    QString pasarData();
 signals:
     void endTime() override;
 private:

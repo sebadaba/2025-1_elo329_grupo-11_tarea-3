@@ -9,20 +9,26 @@ QT_BEGIN_NAMESPACE
 namespace Ui{
 class Form;
 }
+
+struct posiciones{
+    float X,Y;
+    int tiempo;
+};
+
 QT_END_NAMESPACE
 
 class GPSFollower : public QWidget, public Subscriber{
     Q_OBJECT
 public:
-    GPSFollower(QString nombre,QString topicName, QWidget* parent = nullptr);
+    GPSFollower(QWidget* parent = nullptr);
     ~GPSFollower();
     void update(QString& mensaje);
+    //bool existe() const;
 protected:
     void paintEvent(QPaintEvent* event);
 private:
     Ui::Form* ui;
-    float X,Y;
-    int tiempo;
+    posiciones vctr;
 };
 
 #endif // GPSFOLLOWER_H
