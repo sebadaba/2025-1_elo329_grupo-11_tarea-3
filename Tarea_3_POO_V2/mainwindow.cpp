@@ -44,14 +44,14 @@ void MainWindow::click_GPS(){
     rutero->show();
     rutero->raise();
     rutero->activateWindow();
-    qDebug("mostrando cosito");
+    //qDebug("mostrando cosito");
 
     connect(autito,&GPSCarPublisher::endTime,this,[=](){
         rutero->close();
         QMessageBox::information(this,"Ruta finalizada","Se ha terminado la simulacion de GPS");
-        qDebug("Timer lindo terminado");
+        //qDebug("Timer lindo terminado");
     });
-    rutero->update();
+    //rutero->update();
 }
 
 void MainWindow::on_actionVideo_Publisher_triggered()
