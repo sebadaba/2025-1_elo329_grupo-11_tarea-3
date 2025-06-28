@@ -36,11 +36,11 @@ GPSCarPublisher::GPSCarPublisher(QString nombre, Broker &broker, QString topicNa
 GPSCarPublisher::~GPSCarPublisher(){}
 
 //funcion que interpola y usa publishNewEvent() para actualizar la ruta.
-QString GPSCarPublisher::pasarData(){
+void GPSCarPublisher::pasarData(){
     if(iteradoract >= posiciones.size()-1){
         tempo->stop();
         emit endTime();
-        return obtenerMSJ("LOL");
+        return ;//"LOL";
     }
 
     posicion p1 = posiciones[iteradoract];
@@ -52,7 +52,7 @@ QString GPSCarPublisher::pasarData(){
     if(tiempoact > t2){
         iteradoract++;
         pasarData();
-        return obtenerMSJ(QString("%1 %2 %3").arg(tiempoact).arg(p1.x).arg(p1.y));
+        return ;//QString("%1 %2 %3").arg(tiempoact).arg(p1.x).arg(p1.y);
     }
 
     //interpolacion.
@@ -63,11 +63,7 @@ QString GPSCarPublisher::pasarData(){
     QString mensaje = QString("%1 %2 %3").arg(tiempoact).arg(posx).arg(posy);
     //this->publishNewEvent(mensaje);
     tiempoact++;
-    return obtenerMSJ(mensaje);
-}
-
-QString GPSCarPublisher::obtenerMSJ(QString msj){
-    return msj;
+    return ;
 }
 
 QVector<posicion> GPSCarPublisher::getPosiciones() const{

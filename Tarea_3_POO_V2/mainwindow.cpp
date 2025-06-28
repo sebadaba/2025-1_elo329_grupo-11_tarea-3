@@ -51,6 +51,7 @@ void MainWindow::click_GPS(){
         QMessageBox::information(this,"Ruta finalizada","Se ha terminado la simulacion de GPS");
         //qDebug("Timer lindo terminado");
     });
+    //rutero->update(autito->obtenerMSJ());
     //rutero->update();
 }
 
