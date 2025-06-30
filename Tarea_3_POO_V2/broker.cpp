@@ -16,8 +16,8 @@ Topic * Broker::createTopic(QString topicName){
     return topic;
 }
 
-bool Broker::subscribe(Subscriber &sub){
-    Topic * topic = findTopic(sub.getTopicName());
+bool Broker::subscribe(Subscriber *sub){
+    Topic * topic = findTopic(sub->getTopicName());
     if (topic == nullptr) return false; // no existe el topic y solo publishers crean topicos
     topic->subscribe(sub);
     return true;

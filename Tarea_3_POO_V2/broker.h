@@ -8,7 +8,7 @@ public:
     Broker();
     ~Broker();
     Topic * createTopic(QString topicName);
-    bool subscribe(Subscriber &sub);
+    bool subscribe(Subscriber *sub);
 
 private:
     QVector<Topic*> * topics;

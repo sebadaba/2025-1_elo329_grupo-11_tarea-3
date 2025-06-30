@@ -20,12 +20,11 @@ QT_END_NAMESPACE
 class GPSFollower : public QWidget, public Subscriber{
     Q_OBJECT
 public:
-    GPSFollower(QWidget* parent = nullptr);
+    GPSFollower(QString nombre,QString topicName,QWidget* parent = nullptr);
     ~GPSFollower();
-    void update(QString& mensaje);
-    //bool existe() const;
+    void update(QString message) override;
 protected:
-    void paintEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* event) override;
 private:
     Ui::Form* ui;
     posiciones vctr;

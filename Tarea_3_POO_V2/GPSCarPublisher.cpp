@@ -1,4 +1,5 @@
 #include "GPSCarPublisher.h"
+#include "GPSFollower.h"
 #include <QDebug>
 #include <QTextStream>
 
@@ -51,19 +52,23 @@ void GPSCarPublisher::pasarData(){
 
     if(tiempoact > t2){
         iteradoract++;
+        if (iteradoract >= posiciones.size() - 1) {
+            tempo->stop();
+            emit endTime();
+            return;
+        }
         pasarData();
-        return ;//QString("%1 %2 %3").arg(tiempoact).arg(p1.x).arg(p1.y);
+        return;
     }
 
     //interpolacion.
-    float a = float(tiempoact - t1)/(t2-t1);
+    float a = (t2 - t1) != 0 ? float(tiempoact - t1) / (t2 - t1) : 0.0;
     float posx = (1-a) * p1.x + a * p2.x;
     float posy = (1-a) * p1.y + a * p2.y;
 
     QString mensaje = QString("%1 %2 %3").arg(tiempoact).arg(posx).arg(posy);
-    //this->publishNewEvent(mensaje);
+    this->publishNewEvent(mensaje);
     tiempoact++;
-    return ;
 }
 
 QVector<posicion> GPSCarPublisher::getPosiciones() const{

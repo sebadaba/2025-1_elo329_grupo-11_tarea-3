@@ -30,7 +30,7 @@ private:
     Ui::MainWindow *ui;
     Broker broker;
     VideoPublisher videoPublisher;
-    //Todo esto para la simulacion de GPS.
+    GPSFollower* rutero = nullptr;
     GPSCarPublisher* autito = nullptr;
     //QTimer* reloj;
 };

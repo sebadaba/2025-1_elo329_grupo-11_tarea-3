@@ -4,13 +4,13 @@ Topic::Topic(QString topicName)
     :topicName(topicName)
     {}
 
-void Topic::subscribe(Subscriber &sub){
+void Topic::subscribe(Subscriber *sub){
     subscribers.append(sub);
 }
 
 void Topic::notify(QString message){
-    for (Subscriber sub : subscribers){
-        sub.update(message);
+    for (Subscriber* sub : subscribers){
+        sub->update(message);
     }
 }
 

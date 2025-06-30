@@ -7,13 +7,13 @@ class Topic
 {
 public:
     Topic(QString topicName);
-    void subscribe(Subscriber &sub);
+    void subscribe(Subscriber *sub);
     void notify(QString message);
     bool hasThisName(QString name);
 
 private:
     QString topicName;
-    QVector<Subscriber> subscribers;
+    QVector<Subscriber*> subscribers;
 };
 
 #endif // TOPIC_H
