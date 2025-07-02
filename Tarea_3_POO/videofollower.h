@@ -27,12 +27,13 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void on_botonPlay_clicked();
-    void on_BotonReInicio_clicked();
-    void on_SliderVolumen_valueChanged(int value);
+    void on_botonPlay_clicked(); //Funcion para el boton play
+    void on_botonPause_clicked(); //Funcion para el boton pause
+    void on_BotonReInicio_clicked(); //Funcion para el boton reinicio
+    void on_SliderVolumen_valueChanged(int value); // Funcion para cambiar el volumen
 
 private:
-    Ui::Form *ui;
+    Ui::Form *ui; 
     QString videoUrl;
     QMediaPlayer *mediaPlayer;
     QVideoWidget *videoWindow;

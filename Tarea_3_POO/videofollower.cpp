@@ -17,7 +17,7 @@ VideoFollower::VideoFollower(QWidget *parent)
     mediaPlayer->setVideoOutput(videoWindow);
 
 
-    ui->VideoLayout->addWidget(videoWindow);
+    ui->VideoLayout->addWidget(videoWindow); // Crea una ventana para el video
 
     videoWindow->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -26,7 +26,7 @@ VideoFollower::VideoFollower(QWidget *parent)
     ui->SliderVolumen->setValue(50);
 
 
-    // connect(ui->botonPlay, &QPushButton::clicked, this, &VideoFollower::on_botonPlay_clicked);
+    
 }
 
 VideoFollower::~VideoFollower() // Destructor
