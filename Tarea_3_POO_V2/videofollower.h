@@ -10,7 +10,7 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class Form;
+    class VideoForm;
 }
 QT_END_NAMESPACE
 
@@ -32,7 +32,7 @@ private slots:
     void on_SliderVolumen_valueChanged(int value);
 
 private:
-    Ui::Form *ui;
+    Ui::VideoForm *ui;
     QString videoUrl;
     QMediaPlayer *mediaPlayer;
     QVideoWidget *videoWindow;

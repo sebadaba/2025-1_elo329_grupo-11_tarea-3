@@ -7,7 +7,7 @@
 #include <QCloseEvent>
 
 VideoFollower::VideoFollower(QWidget *parent)
-    : QDialog(parent), Subscriber("VideoFollower", "VideoTopic"), ui(new Ui::Form)
+    : QDialog(parent), Subscriber("VideoFollower", "VideoTopic"), ui(new Ui::VideoForm)
 {
     ui->setupUi(this);
     setWindowTitle("Reproduccion de video");
@@ -15,7 +15,7 @@ VideoFollower::VideoFollower(QWidget *parent)
 
     mediaPlayer = new QMediaPlayer(this);
     videoWindow = new QVideoWidget(this);
-    
+
     mediaPlayer->setVideoOutput(videoWindow);
 
 
@@ -28,7 +28,9 @@ VideoFollower::VideoFollower(QWidget *parent)
     ui->SliderVolumen->setValue(50);
 
 
-    // connect(ui->botonPlay, &QPushButton::clicked, this, &VideoFollower::on_botonPlay_clicked);
+    //connect(ui->botonPlay, &QPushButton::clicked, this, &VideoFollower::on_botonPlay_clicked);
+    //connect(ui->BotonReInicio, &QPushButton::clicked, this, &VideoFollower::on_BotonReInicio_clicked);
+    //connect(ui->SliderVolumen, &QSlider::valueChanged, this, &VideoFollower::on_SliderVolumen_valueChanged);
 }
 
 VideoFollower::~VideoFollower() // Destructor
@@ -38,11 +40,11 @@ VideoFollower::~VideoFollower() // Destructor
         mediaPlayer->stop();
 
     }
-    
+
     if (videoWindow) {
         videoWindow->setParent(nullptr);
     }
-    
+
     delete ui;
 }
 
@@ -81,7 +83,7 @@ void VideoFollower::PlayVideo(QString Url)
 
 
     mediaPlayer->setMedia(videoQUrl);
-    
+
     qDebug() << "Cargando video:" << Url;
 }
 
@@ -99,8 +101,7 @@ void VideoFollower::closeEvent(QCloseEvent *event) // Metodo para para la reprod
     if (mediaPlayer) {
         mediaPlayer->stop();
     }
-    
+
     qDebug("Cerrando VideoFollower");
     event->accept();
 }
-

@@ -7,7 +7,7 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui{
-class Form;
+class GPSForm;
 }
 
 struct posiciones{
@@ -26,7 +26,7 @@ public:
 protected:
     void paintEvent(QPaintEvent* event) override;
 private:
-    Ui::Form* ui;
+    Ui::GPSForm* ui;
     posiciones vctr;
 };
 

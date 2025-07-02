@@ -8,7 +8,7 @@
 GPSFollower::GPSFollower(QString nombre,QString topicName,QWidget *parent) :
     QWidget(parent)
     , Subscriber(nombre,topicName)
-    , ui(new Ui::Form)
+    , ui(new Ui::GPSForm)
 {
     ui->setupUi(this);
     setWindowTitle("Seguimiento ruta");

@@ -3,8 +3,6 @@
 VideoPublisher::VideoPublisher(QString name, Broker &broker, QString Topic_name)
     :Publisher(name, broker, Topic_name){
 
-
-
 }
 
 VideoPublisher::~VideoPublisher(){

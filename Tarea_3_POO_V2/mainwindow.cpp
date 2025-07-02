@@ -1,12 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QInputDialog>
-#include <QMessageBox>
-#include <QDebug>
-#include <QTimer>
-#include "videopublisher.h"
-#include "broker.h"
-#include "videofollower.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,10 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
     , rutero(new GPSFollower("AntonioOG","ferrari",nullptr))
 {
     ui->setupUi(this);
-    ui->UrlBoton->setDisabled(true);
-    connect(ui->actionVideo_Publisher, &QAction::triggered, this, &MainWindow::on_actionVideo_Publisher_triggered);
-    connect(ui->actionVideo_Subscriber, &QAction::triggered, this, &MainWindow::on_actionVideo_Subscriber_triggered);
-    connect(ui->actionGPS,&QAction::triggered, this, &MainWindow::click_GPS);
+
+    setWindowTitle("Simulador Publisher/Subscriber - Video y GPS");
+    resize(500, 300);
 }
 
 MainWindow::~MainWindow()
@@ -29,27 +21,59 @@ MainWindow::~MainWindow()
     delete rutero;
 }
 
-void MainWindow::click_GPS(){
-    autito = new GPSCarPublisher("Seba",broker,"ferrari");
+void MainWindow::onVideoUrlChanged()
+{
+    if (!ui->campoURL->text().isEmpty()) {
+        videoPublisher.SetURL(ui->campoURL->text());
 
+        QString currentUrl = ui->campoURL->text();
+        ui->UrlBoton->setText(currentUrl);
+        ui->UrlBoton->setEnabled(true);
+    }
+}
+
+void MainWindow::click_GPS(){
+    bool okPublisherName;
+    QString publisherName = QInputDialog::getText(this, tr("Crear Publicador GPS"),
+                                                  tr("Nombre del Publicador:"), QLineEdit::Normal,
+                                                  QString(), &okPublisherName);
+    if (!okPublisherName || publisherName.isEmpty()) {
+        QMessageBox::warning(this, "Creacion Cancelada", "Se requiere un nombre para el publicador.");
+        return;
+    }
+
+    bool okTopicName;
+    QString topicName = QInputDialog::getText(this, tr("Crear Publicador GPS"),
+                                              tr("Nombre del Topico (GPS):"), QLineEdit::Normal,
+                                              QString("GPS"), &okTopicName);
+    if (!okTopicName || topicName.isEmpty()) {
+        QMessageBox::warning(this, "Creacion Cancelada", "Se requiere un nombre para el topico.");
+        return;
+    }
+
+    autito = new GPSCarPublisher("Seba",broker,"ferrari");
     if(!autito->existe()){
         QMessageBox::warning(this,"ERROR","No se cargaron correctamente las posiciones.");
         delete autito;
         autito = nullptr;
         return;
     }
+
+    ui->gpsFileLabel->setText("Archivo cargado correctamente");
+
     qDebug("Se ha creado GPSPublisher bien");
-
     this->broker.subscribe(rutero);
-
     rutero->show();
     rutero->raise();
     rutero->activateWindow();
+
     connect(autito,&GPSCarPublisher::endTime,this,[=](){
         rutero->close();
         QMessageBox::information(this,"Ruta finalizada","Se ha terminado la simulacion de GPS");
     });
+
     rutero->update("0 0 0");
+    ui->currentPositionLabel->setText("Posicion inicial cargada");
 }
 
 void MainWindow::on_actionVideo_Publisher_triggered()
@@ -61,12 +85,9 @@ void MainWindow::on_actionVideo_Subscriber_triggered()
 {
 }
 
-void MainWindow::on_campoURL_returnPressed() // Logica para el campo de texto URL
+void MainWindow::on_campoURL_returnPressed()
 {
-    videoPublisher.SetURL(ui->campoURL->text());
-    ui->UrlBoton->setText(ui->campoURL->text());
-    ui->UrlBoton->setDisabled(false);
-    ui->campoURL->clear();
+    onVideoUrlChanged();
 }
 
 void MainWindow::on_UrlBoton_clicked()
@@ -76,6 +97,6 @@ void MainWindow::on_UrlBoton_clicked()
     videoWindow->raise();
     videoWindow->activateWindow();
 
-    videoWindow->PlayVideo(ui->UrlBoton->text());
+    QString currentUrl = ui->UrlBoton->text();
+    videoWindow->PlayVideo(currentUrl);
 }
-
