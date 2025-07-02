@@ -45,7 +45,7 @@ Para compilar este proyecto, necesitará tener instalado el **framework Qt (vers
 
 **Abrir el Proyecto en Qt Creator:**
 * Abra Qt Creator.
-* Vaya a `File > Open File or Project...` y seleccione el archivo `Tare_3_POO.pro`.
+* Vaya a `File > Open File or Project...` y seleccione el archivo `Tarea_3_POO.pro`.
 * Configure el kit de compilación deseado.
 
 ## Cómo Ejecutar
