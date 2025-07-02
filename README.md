@@ -50,8 +50,6 @@ Para compilar este proyecto, necesitará tener instalado el **framework Qt (vers
 
 ## Cómo Ejecutar
 
-Una vez compilado, el ejecutable se encontrará en la carpeta de compilación (usualmente `build-YourProjectName-Desktop_Qt_...` o similar, dentro del directorio del proyecto).
-
 **Desde Qt Creator:**
 * Simplemente haga clic en el botón `Run` (el triángulo verde) en Qt Creator.
 
